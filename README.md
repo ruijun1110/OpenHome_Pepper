@@ -50,7 +50,7 @@ Welcome to OpenHome!
 <ul>
   <li>Navigate to the directory where your script (<code>talk.py</code>) is located.</li>
   <li>Run the script using Python 3:
-    <pre><code>python3 talk.py</code></pre>
+    <pre><code>python3 talk3.py</code></pre>
   </li>
 </ul>
 
