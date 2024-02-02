@@ -34,6 +34,16 @@
     <li>To get started with OpenHome, navigate to the <code>/openhome</code> directory in your terminal and launch the application with the command: <code>python3 run.py</code>.</li>
 </ul>
 
+
+<p><strong>process_command.py:</strong></p>
+<ul>
+    <li>Decides if a trigger word for a specific command is called</li>
+    <li>List of capabilities is in /capabilities - These are scaffolds for now.</li>
+    <li>The words to trigger a command must be stated and transcribed EXACTLY. If no command is found, it will default to two way conversation.</li>
+</ul>
+
+
+
 <p><strong>audio_module.py:</strong></p>
 <ul>
     <li>Handles audio recording and transcription.</li>
