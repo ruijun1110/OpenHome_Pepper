@@ -16,12 +16,13 @@ from chatgpt_module import chatgpt
 from greeting_module import first_time_greeting
 from text_speech_module import text_to_speech
 from audio_module import record_and_transcribe
+from process_command import process_command
 
 # Initialize colorama for colored text output
 init()
 
 # Global flag to check if it's the first run of the script
-is_first_run = True
+is_first_run = False
 
 # Function to open and read a file
 def open_file(filepath):
@@ -51,13 +52,28 @@ if is_first_run:
     first_time_greeting(api_key, elapikey, chatbot1, conversation1, voice_id1)
     is_first_run = False
 
+
+
 # Main loop
 while True:
     # Record user's voice and transcribe it
     user_message = record_and_transcribe(api_key)
 
+    # Check and process specific commands before sending to ChatGPT (end session, update brain, etc)
+    # Process the command if present
+    command_processed, user_message = process_command(user_message)
+
+    # Start timing just before sending the request to ChatGPT
+    start_time = datetime.datetime.now()
+
     # Generate a response using the ChatGPT module
-    response = chatgpt(api_key, conversation1, chatbot1, user_message)
+    # Include a note in the user_message if a command was processed
+    response_note = "You are a smart speaker. Tell me that you just processed a command. My message to you follows:" if command_processed else ""
+    response = chatgpt(api_key, conversation1, chatbot1, response_note + user_message)
+
+    # Calculate the time taken for ChatGPT to respond
+    chatgpt_response_time = datetime.datetime.now() - start_time
+    print(f"Time taken for ChatGPT response: {chatgpt_response_time.total_seconds()} seconds")
 
     # Print the response in a colored format
     print_colored("Openhome:", f"{response}\n\n")
@@ -65,5 +81,12 @@ while True:
     # Remove any image generation commands from the response
     user_message_without_generate_image = re.sub(r'(Response:|Narration:|Image: generate_image:.*|)', '', response).strip()
 
+    # Start timing the text-to-speech conversion
+    tts_start_time = datetime.datetime.now()
+
     # Convert the response to speech and play it
     text_to_speech(user_message_without_generate_image, voice_id1, elapikey)
+
+    # Calculate the time taken for text-to-speech conversion
+    tts_response_time = datetime.datetime.now() - tts_start_time
+    print(f"Time taken for text-to-speech conversion (including speaking): {tts_response_time.total_seconds()} seconds")
