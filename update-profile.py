@@ -1,4 +1,5 @@
-import openai
+from openai import OpenAI
+
 import datetime
 
 def open_file(filepath):
@@ -13,19 +14,18 @@ api_key = open_file('api-keys/openaiapikey2.txt')
 chatbot1 = open_file('personalities/Activated.txt')
 
 def chatgpt(api_key, chatbot, history_content):
-    openai.api_key = api_key
+
+    client = OpenAI(api_key=api_key, base_url="https://chat-router.recursal-dev.com/dFe6VG2eAjfEjGt7yb39q")
     context = "You are going to analyze a smart speaker conversation. This is a two-way conversation between a user and an AI. You will be updating the user's bio. Look for new facts, information about their name, hobbies, family, personality, goals, desires. Summarize key insights as bullets."
     prompt = {"role": "system", "content": f"{chatbot}\n\n{context}"}
     messages = [{"role": "user", "content": history_content}]
     messages.insert(0, prompt)
 
-    completion = openai.ChatCompletion.create(
-        model="gpt-4",
-        messages=messages,
-        temperature=0.7,
-        max_tokens=1024
-    )
-    return completion.choices[0].message['content']
+    completion = client.chat.completions.create(model="gpt-4",
+    messages=messages,
+    temperature=0.7,
+    max_tokens=1024)
+    return completion.choices[0].message.content
 
 def process_history_and_update_user():
     history_content = open_file('history-files/history.txt')
