@@ -3,7 +3,7 @@ Welcome to OpenHome!
 </head>
 <body>
 
-<h2>Script Setup Instructions</h2>
+<h2>OpenHome v0.01 Setup Instructions</h2>
 
 <p>Follow these steps to run the provided script for the first time:</p>
 
