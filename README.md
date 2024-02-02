@@ -11,7 +11,7 @@
 </p>
 
 <p>
-    Our mission is clear – to build an AI smart speaker that's cutting edge, open, customizable, and versatile for every user. We're not just creating a product, we're creating an ecosystem where every idea counts and is integrated to one giant super brain. 
+    Our mission is clear – to build an AI smart speaker that's cutting edge, open, customizable, and versatile for every user. We're not just creating a product, we're creating an ecosystem where every idea counts and is integrated to one giant super brain.
 </p>
 
 <p>
@@ -20,6 +20,7 @@
         <li><strong>Accessibility:</strong> Easy-to-understand codebase and well-documented features for all skill levels.</li>
         <li><strong>Innovation:</strong> A playground for your most creative ideas to take shape and evolve.</li>
         <li><strong>Community:</strong> A supportive and collaborative space where questions are welcomed, and knowledge is shared.</li>
+        <li><strong>Open-Source:</strong> We're committed to being open-source and empowering people to create the technology they want.</li>
     </ul>
 </p>
 
