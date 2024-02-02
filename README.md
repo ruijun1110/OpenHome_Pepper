@@ -76,7 +76,7 @@
 
 <p><strong>Interactions:</strong></p>
 <ul>
-    <li>User interaction starts with talk3.py, which records speech and sends it to chatgpt_module.py.</li>
+    <li>User interaction starts with run.py, which records speech and sends it to chatgpt_module.py.</li>
     <li>Responses are processed and sent back to the user through text_speech_module.py.</li>
     <li>First run initialization and greeting are managed by greeting_module.py.</li>
     <li>Data handling is centralized in file_management.py.</li>
@@ -86,7 +86,7 @@
 <ul>
     <li>Modular design for separation of concerns.</li>
     <li>Each module is focused on a specific task for reduced complexity.</li>
-    <li>talk3.py coordinates all modules for a cohesive application experience.</li>
+    <li>run.py coordinates all modules for a cohesive application experience.</li>
 </ul>
 
 
