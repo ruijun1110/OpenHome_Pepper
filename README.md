@@ -25,12 +25,12 @@
 
 <h2>Project Architecture Overview</h2>
 
-<p><strong>talk3.py (Main Script):</strong></p>
+<p><strong>run.py (Main Script):</strong></p>
 <ul>
     <li>Entry point of the application. 
     <li>Orchestrates the program flow, calling functions from other modules.</li>
     <li>Manages the main interaction loop.</li>
-    <li>To get started with OpenHome, navigate to the <code>/openhome</code> directory in your terminal and launch the application with the command: <code>python3 talk3.py</code>.</li>
+    <li>To get started with OpenHome, navigate to the <code>/openhome</code> directory in your terminal and launch the application with the command: <code>python3 run.py</code>.</li>
 </ul>
 
 <p><strong>audio_module.py:</strong></p>
@@ -140,9 +140,9 @@ Welcome to OpenHome!
 
 <h3><strong>Step 7: Run the Script</strong></h3>
 <ul>
-  <li>Navigate to the directory where your script (<code>talk.py</code>) is located.</li>
+  <li>Navigate to the directory where your script (<code>run.py</code>) is located.</li>
   <li>Run the script using Python 3:
-    <pre><code>python3 talk3.py</code></pre>
+    <pre><code>python3 run.py</code></pre>
   </li>
 </ul>
 
