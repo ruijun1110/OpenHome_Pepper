@@ -1,0 +1,6 @@
+Name: Blake
+Age: 22
+School: USC
+Company: Building OpenHome, an AI Smart Speaker
+
+Summary of Insights Below:
