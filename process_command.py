@@ -3,7 +3,10 @@ import importlib.util
 import sys
 import os
 
-def process_command(transcription):
+
+
+
+def process_command(transcription, api_key):
     # Load commands from the JSON file
     with open('capabilities/capabilities.json', 'r') as file:
         commands = json.load(file)
@@ -16,12 +19,12 @@ def process_command(transcription):
 
                 # Build the module path
                 module_name = command['Library'].replace('.py', '')
-                module_path = os.path.join(os.getcwd(), module_name + '.py')  # Adjust path as necessary
+                module_path = os.path.join(os.getcwd(), module_name + '.py')
 
                 # Check if the module exists
                 if not os.path.exists(module_path):
                     print(f"Module {module_name} not found.")
-                    return True, transcription
+                    return True, transcription, command.get('PauseMain', False)
 
                 # Dynamically import the module
                 spec = importlib.util.spec_from_file_location(module_name, module_path)
@@ -29,7 +32,8 @@ def process_command(transcription):
                 sys.modules[module_name] = module
                 spec.loader.exec_module(module)
 
-                module.execute()  # Execute the module function
-                return True, transcription
+                # Execute the module function with the required arguments
+                module.execute(transcription)
+                return True, transcription, command.get('PauseMain', False)
 
-    return False, transcription
+    return False, transcription, False

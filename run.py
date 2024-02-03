@@ -33,11 +33,16 @@ def open_file(filepath):
 # Load API keys and voice ID from files
 api_key = open_file('api-keys/openaiapikey2.txt')
 elapikey = open_file('api-keys/elabapikey.txt')
-voice_id1 = 'OYWAX2pWZtnMdoUwxIkN'
+
+voice_id1 = 'Ii3OgQbD90mchULEEqmA' #Main
+onboarding_voice_id = 'SQexbWhyaGEi9hIBqXqM' #Personality Builder
 
 # Initialize conversation history and load chatbot personality
 conversation1 = []  
-chatbot1 = open_file('personalities/Activated.txt')
+conversation_onboarding = []  
+chatbot1 = open_file('personalities/34e00e46-0dcc-4d42-9d3a-217426b62e73.txt')
+onboarding_guide = open_file('personalities/Onboarding.txt')
+
 
 # Function to print text in colored format
 def print_colored(agent, text):
@@ -49,7 +54,7 @@ def print_colored(agent, text):
 # Check if this is the first run of the script
 if is_first_run:
     # Perform first time greeting using the greeting module
-    first_time_greeting(api_key, elapikey, chatbot1, conversation1, voice_id1)
+    first_time_greeting(api_key, elapikey, onboarding_guide, conversation_onboarding, onboarding_voice_id)
     is_first_run = False
 
 
@@ -61,7 +66,11 @@ while True:
 
     # Check and process specific commands before sending to ChatGPT (end session, update brain, etc)
     # Process the command if present
-    command_processed, user_message = process_command(user_message)
+    command_processed, user_message, pause_main = process_command(user_message, api_key)
+
+    if pause_main:
+        # Skip the rest of the loop if the main thread should pause
+        continue
 
     # Start timing just before sending the request to ChatGPT
     start_time = datetime.datetime.now()

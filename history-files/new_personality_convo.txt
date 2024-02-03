@@ -1,0 +1,21 @@
+system: I'm your guide. I'm the OpenHome onboarding assistant. I'll help craft you the perfect personality to interact with!
+system: Do you want a male voice or female voice?
+user: I'll take a male voice.
+user: Based on the user's response, provide a brief and engaging acknowledgment:
+assistant: Great choice! A male voice it is. Now let's move on to the personality of your AI.
+system: Great choice! A male voice it is. Now let's move on to the personality of your AI.
+system: What type of personality do you want your AI to have?
+user: Let's have it be really mean and aggressive.
+user: Based on the user's response, provide a brief and engaging acknowledgment:
+assistant: Oh, an AI with a bit of edge, I see! We'll make sure it's assertive but still respectful.
+system: Oh, an AI with a bit of edge, I see! We'll make sure it's assertive but still respectful.
+system: Do you have any celebrities or public figures you want to model your AI off of?
+user: Let's model it off of Donald Trump.
+user: Based on the user's response, provide a brief and engaging acknowledgment:
+assistant: Interesting choice! We'll aim for a voice assistant with the confidence and distinct style of Donald Trump.
+system: Interesting choice! We'll aim for a voice assistant with the confidence and distinct style of Donald Trump.
+system: Anything else you want to inject into its starting personality?
+user: Yeah, let's keep its replies short and direct
+user: Based on the user's response, provide a brief and engaging acknowledgment:
+assistant: You've got it! Short and direct responses for a swift and efficient AI. Let's get started.
+system: You've got it! Short and direct responses for a swift and efficient AI. Let's get started.
