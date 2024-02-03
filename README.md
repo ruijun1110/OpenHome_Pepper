@@ -129,10 +129,11 @@ Welcome to OpenHome!
   </li>
 </ul>
 
-<h3><strong>Step 4: Install a Specific Version of the OpenAI Library</strong></h3>
+<h3><strong>Step 4: Upgrade the OpenAI Library</strong></h3>
 <ul>
-  <li>Install version 0.28 of the OpenAI library:
-    <pre><code>pip3 install openai==0.28</code></pre>
+  <li>Install the OpenAI library (This is a known area where some install/compatability issues occur):
+    <pre><code>pip3 install --upgrade openai</code></pre>
+<ui></ui>Verify the Package Version: Ensure you have the correct version of the openai package installed. You can check the version by running:</ul> <code>pip show openai </code>
   </li>
 </ul>
 
