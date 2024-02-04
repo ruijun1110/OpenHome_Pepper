@@ -2,9 +2,9 @@
     {
         "ID": 1,
         "Type": "Selected Personality",
-        "Description": "Alan Watts",
-        "VoiceID": "r5MkZndaqAG50VL1H2fz",
-        "PersonalityPath": "personalities/alan-watts.txt"
+        "Description": "Johnny",
+        "VoiceID": "gHNJYfmPRm5j7fGw78bl",
+        "PersonalityPath": "personalities/Activated.txt"
 
     },
     {
