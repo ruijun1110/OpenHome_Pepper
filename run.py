@@ -19,13 +19,16 @@ from greeting_module import first_time_greeting
 from text_speech_module import text_to_speech
 from audio_module import record_and_transcribe
 from process_command import process_command
+from DynamicPersonalityConstructor import DynamicPersonalityConstructor
+
 
 # Colorama initialization for colored text output
 init()
 
 # Global flag to check if it's the first run of the script
 # Set to True to trigger the first run experience (onboarding assistant)
-is_first_run = True
+# Needs to be refactored, is currently broken since I modularized personalities to DynamicPersonalityConstructor.
+is_first_run = False #Keep false for now
 
 # ---------------------
 # Function Definitions
@@ -45,11 +48,8 @@ api_key = open_file('api-keys/openaiapikey2.txt')
 elapikey = open_file('api-keys/elabapikey.txt')
 
 # Load and select the default personality
-personalities = load_personalities('personalities/personalities.json')
-default_personality_id = 1  # Default personality ID
-current_personality = personalities[default_personality_id - 1]
-voice_id1 = current_personality['VoiceID']
-chatbot1 = open_file(current_personality['PersonalityPath'])
+personality_constructor = DynamicPersonalityConstructor('personalities/personalities.json', 'history-files/user.txt')
+
 
 # Load content for the onboarding guide (In the future this should only load if it's the first run)
 onboarding_guide_path = 'personalities/onboarding.txt'  # Update with the correct path
@@ -63,6 +63,9 @@ elapikey = open_file('api-keys/elabapikey.txt')
 # Initialize conversation histories for different personalities
 conversation1 = []  # Main conversation history
 conversation_onboarding = []  # Onboarding conversation history
+
+
+
 
 # ---------------------
 # Utility Functions
@@ -87,26 +90,40 @@ if is_first_run:
 # ---------------------
 
 while True:
+    print("Starting main loop iteration...")
     # Step 1: Record and transcribe user's voice
+    print("Recording user's voice...")
     user_message = record_and_transcribe(api_key)
+    print(f"Transcription: {user_message}")
 
-    # Step 2: Process commands (like end session, update brain, etc.)
+    # Step 2: Process commands
+    print("Processing commands...")
     command_processed, user_message, pause_main, switch_personality_requested, new_personality_id = process_command(user_message, api_key)
+    print(f"Command processed: {command_processed}, Pause main: {pause_main}, Switch personality: {switch_personality_requested}")
 
-    if pause_main:
-        continue  # Skip to the next iteration if main processing needs to be paused
-
-    # Step 3: Handle personality switching
+    # Update personality if needed
     if switch_personality_requested:
-        current_personality = personalities[new_personality_id - 1]
-        voice_id1 = current_personality['VoiceID']
-        chatbot1 = open_file(current_personality['PersonalityPath'])
+        personality_constructor.switch_personality(new_personality_id)
         print(f"Switched to new personality: ID {new_personality_id}")
 
+    # Step 3: 
+    print("Appending user message to conversation history...")
+    conversation1.append({"role": "user", "content": user_message})
+
+    # Generate dynamic prompt
+    print("Generating dynamic prompt...")
+    dynamic_prompt = personality_constructor.construct_prompt(user_message)
+    print(f"Dynamic Prompt: {dynamic_prompt[:100]}...")  # Print first 100 characters for brevity
+
+
     # Step 4: Interact with ChatGPT module
-    start_time = datetime.datetime.now()
-    response_note = "Command processed. " if command_processed else ""
-    response = chatgpt(api_key, conversation1, chatbot1, response_note + user_message)
+    print("Interacting with ChatGPT module...")
+    start_time = datetime.datetime.now()  # Define start_time here
+    response = chatgpt(api_key, dynamic_prompt, conversation1)
+
+    voice_id1 = personality_constructor.voice_id  # Get the current voice ID
+
+
     chatgpt_response_time = datetime.datetime.now() - start_time
     print(f"Time taken for ChatGPT response: {chatgpt_response_time.total_seconds()} seconds")
 
