@@ -25,10 +25,7 @@ def first_time_greeting(api_key, elapikey, onboarding_guide, conversation_onboar
 
     # Define questions to ask the user
     questions = [
-        "Do you want a male voice or female voice?",
-        "What type of personality do you want your AI to have?",
         "Do you have any celebrities or public figures you want to model your AI off of?",
-        "Anything else you want to inject into its starting personality?"
     ]
 
     # Loop to ask questions and record answers

@@ -1,0 +1,32 @@
+[
+    {
+        "ID": 1,
+        "Type": "Selected Personality",
+        "Description": "Alan Watts",
+        "VoiceID": "r5MkZndaqAG50VL1H2fz",
+        "PersonalityPath": "personalities/alan-watts.txt"
+
+    },
+    {
+        "ID": 2,
+        "Type": "Onboarding Guide",
+        "Description": "The OpenHome First Run Experience Voice and Personality",
+        "VoiceID": "SQexbWhyaGEi9hIBqXqM",
+        "PersonalityPath": "personalities/onboarding.txt"
+
+    },
+    {
+        "ID": 3,
+        "Type": "Placeholder Personality 1",
+        "Description": "Description of Placeholder Personality 1",
+        "VoiceID": "PlaceholderVoiceID1",
+        "PersonalityPath": "personalities/placeholder1.txt"
+    },
+    {
+        "ID": 4,
+        "Type": "Placeholder Personality 2",
+        "Description": "Description of Placeholder Personality 2",
+        "VoiceID": "PlaceholderVoiceID2",
+        "PersonalityPath": "personalities/placeholder2.txt"
+    }
+]
