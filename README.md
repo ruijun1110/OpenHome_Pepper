@@ -43,7 +43,6 @@ Dynamic Personality: OpenHome begins with a foundation of diverse personalities,
 <b>Audible Magic:</b> What good is a smart response if it can't be enjoyed? Our text-to-speech module brings the conversation to life, turning text responses into natural, fluent speech.
 
 
-
 <h2>Main Script</h2>
 <p><strong>run.py:</strong></p>
     <ul>
