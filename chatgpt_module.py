@@ -1,5 +1,24 @@
 from openai import OpenAI
 import datetime
+import json
+
+
+
+def log_conversation_history(conversation):
+    # Get the current timestamp
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    # Create a dictionary to represent the conversation entry
+    conversation_entry = {
+        "timestamp": timestamp,
+        "conversation": conversation
+    }
+
+    # Write the conversation entry to a JSON file
+    with open('history-files/history.json', 'a', encoding='utf-8') as history_file:
+        json.dump(conversation_entry, history_file, ensure_ascii=False, indent=4)
+
+        
 
 def chatgpt(api_key, dynamic_prompt, conversation, temperature=0.9, frequency_penalty=0.2, presence_penalty=0):
     """
@@ -34,19 +53,21 @@ def chatgpt(api_key, dynamic_prompt, conversation, temperature=0.9, frequency_pe
         presence_penalty=presence_penalty,
         messages=messages_input)
 
-    # Extract the response from the completion
+    # Extract the response from the GPT model's completion
     chat_response = completion.choices[0].message.content
 
     # Append the GPT model's response to the conversation
     conversation.append({"role": "assistant", "content": chat_response})
 
-    # Write the latest exchange (user and assistant) to the history file
-    with open('history-files/history.txt', 'a', encoding='utf-8') as history_file:
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        for message in conversation[-2:]:  # Last exchange (user and assistant)
-            history_file.write(f"Timestamp: {timestamp}\n")
-            history_file.write(f"{message['role'].capitalize()}: {message['content']}\n")
-        history_file.write("\n")
+    # Log the entire conversation as JSON
+    log_conversation_history(conversation)
 
     # Return the response
     return chat_response
+
+
+
+
+
+
+
