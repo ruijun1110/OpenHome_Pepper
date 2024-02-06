@@ -42,7 +42,6 @@ Dynamic Personality: OpenHome begins with a foundation of diverse personalities,
 
 <b>Audible Magic:</b> What good is a smart response if it can't be enjoyed? Our text-to-speech module brings the conversation to life, turning text responses into natural, fluent speech.
 
-
 <h2>Main Script</h2>
 <p><strong>run.py:</strong></p>
     <ul>
@@ -119,7 +118,6 @@ Dynamic Personality: OpenHome begins with a foundation of diverse personalities,
     <p>Welcome to OpenHome!</p>
 
 
-
 Welcome to OpenHome!
 
 </head>
@@ -128,6 +126,11 @@ Welcome to OpenHome!
 <h2>OpenHome v0.01 Setup Instructions</h2>
 
 <p>Follow these steps to run the provided script for the first time:</p>
+
+<h3><strong>Known Bugs:</strong></h3>
+<ul>
+  <li>Please remove the new line from elabapikey.txt in the api-keys folder. If you don't do this the code will break.</li>
+</ul>
 
 <h3><strong>Step 1: Install Python 3</strong></h3>
 <ul>
@@ -145,7 +148,10 @@ Welcome to OpenHome!
 <h3><strong>Step 3: Install Dependencies</strong></h3>
 <ul>
   <li>Open terminal and install necessary Python libraries using pip3:
-    <pre><code>pip3 install sounddevice soundfile numpy openai colorama datetime base64 pydub requests</code></pre>
+    <pre><code>pip3 install sounddevice soundfile numpy openai colorama datetime base64 pydub requests ffmpeg ffprobe</code></pre>
+  </li>
+   <li>Also install ffmpeg and ffprobe using Homebrew:
+    <pre><code>brew install ffmpeg ffprobe</code></pre>
   </li>
 </ul>
 
@@ -153,14 +159,14 @@ Welcome to OpenHome!
 <ul>
   <li>Install the OpenAI library (This is a known area where some install/compatability issues occur):
     <pre><code>pip3 install --upgrade openai</code></pre>
-<ui></ui>Verify the Package Version: Ensure you have the correct version of the openai package installed. You can check the version by running:</ul> <code>pip show openai </code>
+<ui></ui>Verify the Package Version: Ensure you have the correct version of the openai package installed. You can check the version by running:</ul> <code>pip show openai</code>
   </li>
 </ul>
 
 <h3><strong>Step 5: Update Your API Keys</strong></h3>
 <ul>
   <li>Obtain your OpenAI and ElevenLabs API keys.</li>
-  <li>This instance is sending data to Recursal for training. The file is currently using a pass through Recursal API key<li>
+  <li>This instance is sending data to Recursal for training. The file is currently using a pass through Recursal API key</li>
   <li>Save them in text files within a folder named <code>api-keys</code> at your script's root directory. Name the files <code>openaiapikey2.txt</code> and <code>elabapikey.txt</code>.</li>
 </ul>
 
