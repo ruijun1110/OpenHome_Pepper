@@ -1,96 +1,80 @@
-from LLM import chatgpt
-from voice_input_output.text_to_voice import text_to_speech
+# Import necessary modules and functions
+from LLM import chatgpt  # Import the chatgpt function from the LLM (Language Learning Model) module.
+from voice_input_output.text_to_voice import text_to_speech  # Convert text responses to voice.
+from voice_input_output.voice_to_text import record_and_transcribe  # Convert voice inputs to text.
+from add_arguments import get_initial_personality  # Parse arguments for initial personality setup.
+from process_user_message import process_message  # Process user messages to determine actions.
+from personalities_manager import load_personality  # Manage loading of AI personalities.
+from history_files.history_manager import store_history  # Manage storage of all conversation history.
+from history_files.user_memory_manager import update_recent_history  # Update recent chats for context.
+from conversation_manager import manage_conversation  # Manage and track the flow of conversation.
+import re  # Regular expressions for text formatting.
+from colorama import Fore, Style  # Color and style for console outputs.
+import yaml  # YAML file processing.
+import json  # JSON file processing.
 
-from voice_input_output.voice_to_text import record_and_transcribe
-
-# add_arguments file adds argumnets to our script.
-from add_arguments import get_initial_personality
-
-# import process_user_message modeule to make decisions
-from process_user_message import process_message
-
-# import personalties manager
-from personalities_manager import load_personality
-
-# all time history manager
-from history_files.history_manager import store_history
-
-# recent two chats storage maanger
-from history_files.user_memory_manager import update_recent_history
-
-# import conversation manager to manage and converge messages
-from conversation_manager import manage_conversation
-import re
-from colorama import Fore, Style
-import yaml
-import json
-
-# Open the yaml file
+# Load configuration settings from YAML file.
 with open('config.yaml', 'r', encoding='utf-8') as file:
-    # Load all the data from the YAML file
-    file_data = yaml.safe_load(file)
+    file_data = yaml.safe_load(file)  # Safe loading avoids executing arbitrary code.
 
-# call the function for adding arguments to this script and get arguments value passed from user.
-personality_id =  get_initial_personality()
+# Initialize system based on user arguments.
+personality_id = get_initial_personality()  # Get the personality ID specified by the user.
+personality = load_personality(personality_id=personality_id)  # Load the corresponding personality data.
 
-# get the personality dictioanry.
-personality = load_personality(personality_id=personality_id)
-
-
-# define the main function to call all functions pressetn in modules
 def main(personality, conversation):
-    """    
-    Main function takes personality and consersation to run the whole proceses for the passed conversation using specified 
-    personality.
+    """
+    Drive the main interaction loop with the user, handling voice input, processing, response generation, and voice output.
 
     Args:
-        personality (string): Personality entered y user while running the main script.
-        conversation (list): List of messages from user and asistant as a history.
+        personality (dict): The AI personality settings including voice ID and personality traits.
+        conversation (list): History of the conversation for context.
 
     Returns:
-        conversation (list): Updated list of messages from user and asistant as a history.
-        end_chat (Boolean): A falg to know whether to end the chat or not.
+        tuple: Updated conversation history and a flag indicating if the chat should end.
     """
-    end_chat = False
-    # if conversation has something record user data else say greetings.
+    end_chat = False  # Flag to determine if the conversation should end.
+    
     if conversation:
-        # call record_and_transcribe to record user and convert it to text
+        # Convert user's spoken words into text.
         user_message = record_and_transcribe(file_data['openai_api_key'])
-
-        # call the conversation manager to mantin conversation
+        
+        # Update the conversation history with the user's message.
         conversation = manage_conversation(user_message, conversation, role='user')
-
-        # pass user message to process_message function to perform capabities if one triggered
+        
+        # Process the user's message to check for commands or actions.
         is_valid_message = process_message(user_message)
-        # if message is empty return from here into main.
+        
         if not is_valid_message:
-            return conversation, end_chat
-
-        # call chatgpt function
+            return conversation, end_chat  # Skip response generation if message is invalid.
+        
+        # Generate a response using the chatgpt function.
         response = chatgpt(file_data['openai_api_key'], conversation, personality['personality'])
-        print(Fore.YELLOW + f"{personality['name']}: {response}" + Style.RESET_ALL, end="'\n")
-        # log all history
+        print(Fore.YELLOW + f"{personality['name']}: {response}" + Style.RESET_ALL)
+        
+        # Store the conversation history and update recent interactions.
         store_history(user_message, response)
-        # update recent history
         update_recent_history(user_message, response)
-        # call the conversation manager to mantin conversation
-        conversation = manage_conversation(response,conversation, role='assistant')
-
-        # format the mesage to remove unsed characters from the chat gpt response.
-        formatted_message = re.sub(r'(Response:|Narration:|Image: generate_image:.*|)', '',response).strip()
+        
+        # Update conversation history with AI's response.
+        conversation = manage_conversation(response, conversation, role='assistant')
+        
+        # Clean up the response text for voice output.
+        formatted_message = re.sub(r'(Response:|Narration:|Image: generate_image:.*|)', '', response).strip()
     else:
-        # on first iteration this code runs to say the greesting stored in yaml file
+        # Greet the user on the first interaction.
         formatted_message = file_data['greetings']
-        # adding a empty propmt in conversation just to signify the first iteration.
         conversation.append({"role": "user", "content": ''})
-    # call text to speech function to convert chat gpt text to speech
+    
+    # Convert the AI's text response to speech.
     text_to_speech(formatted_message, personality['voice_id'], file_data['elevenlabs_api_key'])
+    
     return conversation, end_chat
 
+# Initialize the conversation history.
 conversation = []
+
+# Main interaction loop.
 while True:
     conversation, end_chat = main(personality, conversation)
     if end_chat:
-        exit()
-
-    
+        break  # Exit the loop if the conversation should end.
