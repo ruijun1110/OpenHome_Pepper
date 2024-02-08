@@ -19,6 +19,8 @@ Our mission is clear – to build an AI smart speaker that's cutting edge, open,
 
 
 ## Project Architecture Overview
+Work in Progress Technical Architecture: https://docs.google.com/document/d/1PInWfbWBY9571Hq4R0nf5Uj01agy6YVXV2UTBonUc4A/edit
+
 <b>The Heart of OpenHome:</b> A Dynamic, Ever-Evolving Core At the core of OpenHome is a unique and powerful loop that continuously evolves the personality of your smart speaker. This isn't just about responding to commands; it's about creating an experience that's deeply personal and constantly refreshing. Every interaction with OpenHome is a step towards a more nuanced and tailored experience.
 
 <b>How It Works:</b> The Magic Behind the Scenes Dynamic Personality: OpenHome begins with a foundation of diverse personalities, each ready to provide a distinct interaction experience. But here's the twist – these personalities aren't static. They evolve with every conversation, adapting to your preferences, your style, and your world.
