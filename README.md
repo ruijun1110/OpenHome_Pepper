@@ -67,7 +67,9 @@ pip install PyAudio
 To run the main pipeline, run the following command:
 
 ```
-python main.py -p <Enter personality>
+~ % cd /openhome
+~ % conda activate openhome
+~ % python main.py -p 1
 ```
 
 - `<Enter personality>`: Pass your desired personality
