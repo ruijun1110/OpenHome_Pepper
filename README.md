@@ -4,7 +4,7 @@
 
 I'm thrilled to introduce you to OpenHome - an open-source AI smart speaker project.
 
-<a href='https://postimages.org/' target='_blank'>
+<a href='https://openhome.xyz/' target='_blank'>
     <img src='https://i.postimg.cc/02Yq2NgB/OpenHome.png' border='0' alt='OpenHome' width='250' height='250'/>
 </a>
 
