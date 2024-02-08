@@ -12,7 +12,7 @@ I'm thrilled to introduce you to OpenHome - an open-source AI smart speaker proj
 
 At OpenHome, we believe in the power of community-driven development to create technology that's not only advanced but also accessible. Whether you're a seasoned developer, a curious beginner, or somewhere in between, OpenHome is your opportunity to contribute to an AI smart speaker that's as simple to get started with as it is powerful.
 
-Our mission is clear – to build an AI smart speaker that's cutting edge, open, customizable, and versatile for every user. We're not just creating a product, we're creating an ecosystem where every idea counts and is integrated to one giant super brain.
+<b>Our Mission:</b> To build an AI smart speaker that's cutting edge, open, customizable, and versatile for every user. We're not just creating a product, we're creating an ecosystem where every idea counts and is integrated to one giant super brain.
 
 # What sets OpenHome apart? Here, you'll find:
 
