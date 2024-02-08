@@ -28,38 +28,47 @@
   },
     "4": {
     "ID": "4",
-    "Name": "Conspiracy",
-    "VoiceID": "bUY7E4hpCtKGLuA2ALzi",
-    "Personality": "Conspiracy.txt",
-    "Mood": "AlanWatts-mood.json",
-    "Current-Mood": "AlanWatts-current-mood.json",
-    "Mood-Evolving-Instructions": "AlanWatts-Mood-Instructions.txt"
+    "name": "Conspiracy",
+    "voice_id": "bUY7E4hpCtKGLuA2ALzi",
+    "personality": "personalities/Conspiracy.txt",
+    "mood": "AlanWatts-mood.json",
+    "current_mood": "AlanWatts-current-mood.json",
+    "mood_evolving_instructions": "AlanWatts-Mood-Instructions.txt"
   },
     "5": {
     "ID": "5",
-    "Name": "BoyfriendAI",
-    "VoiceID": "ctQvtazxvLzQq7OtBN45",
-    "Personality": "Chip.txt",
-    "Mood": "AlanWatts-mood.json",
-    "Current-Mood": "AlanWatts-current-mood.json",
-    "Mood-Evolving-Instructions": "AlanWatts-Mood-Instructions.txt"
+    "name": "BoyfriendAI",
+    "voiceID": "ctQvtazxvLzQq7OtBN45",
+    "personality": "personalities/Chip.txt",
+    "mood": "AlanWatts-mood.json",
+    "current_mood": "AlanWatts-current-mood.json",
+    "mood_evolving_instructions": "AlanWatts-Mood-Instructions.txt"
   },
     "6": {
     "ID": "6",
-    "Name": "Couch",
-    "VoiceID": "JqdBvYaDMsJYILLgwRzg",
-    "Personality": "Couch.txt",
-    "Mood": "AlanWatts-mood.json",
-    "Current-Mood": "AlanWatts-current-mood.json",
-    "Mood-Evolving-Instructions": "AlanWatts-Mood-Instructions.txt"
+    "name": "Couch",
+    "voice_id": "JqdBvYaDMsJYILLgwRzg",
+    "Personality": "personalities/Couch.txt",
+    "mood": "AlanWatts-mood.json",
+    "current_mood": "AlanWatts-current-mood.json",
+    "mood_evolving_instructions": "AlanWatts-Mood-Instructions.txt"
   },
     "7": {
     "ID": "7",
-    "Name": "Debate",
-    "VoiceID": "Ii3OgQbD90mchULEEqmA",
-    "Personality": "Debate.txt",
-    "Mood": "Ava-mood.json",
-    "Current-Mood": "Ava-current-mood.json",
-    "Mood-Evolving-Instructions": "Ava-Mood-Instructions.txt"
+    "name": "Debate",
+    "voice_id": "Ii3OgQbD90mchULEEqmA",
+    "personality": "personalities/Debate.txt",
+    "mood": "Ava-mood.json",
+    "current_mood": "Ava-current-mood.json",
+    "mood_evolving_instructions": "Ava-Mood-Instructions.txt"
+  },
+    "8": {
+    "ID": "8",
+    "name": "Piano",
+    "voice_id": "eC737JJyVIAHiQQk49rl",
+    "personality": "personalities/Piano.txt",
+    "mood": "Ava-mood.json",
+    "current_mood": "Ava-current-mood.json",
+    "mood_evolving_instructions": "Ava-Mood-Instructions.txt"
   } 
 }
