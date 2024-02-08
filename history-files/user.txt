@@ -1,5 +1,0 @@
-Timestamp: 2024-02-01 19:31:37
-User: Name: Jesse
-Age: 30
-Living in: NYC
-Company: Building OpenHome, AI Smart Speaker
