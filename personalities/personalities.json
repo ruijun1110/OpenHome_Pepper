@@ -38,7 +38,7 @@
     "5": {
     "ID": "5",
     "name": "BoyfriendAI",
-    "voiceID": "ctQvtazxvLzQq7OtBN45",
+    "voice_id": "ctQvtazxvLzQq7OtBN45",
     "personality": "personalities/Chip.txt",
     "mood": "AlanWatts-mood.json",
     "current_mood": "AlanWatts-current-mood.json",
