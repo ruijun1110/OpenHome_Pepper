@@ -57,14 +57,13 @@ To install the required dependencies, run the following command:
 python -m pip install -r requirements.txt 
 ```
 Also install following:
-
+```
+pip install PyAudio
+```
 ```
 sudo apt-get install libportaudio2
 sudo apt install ffmpeg
 sudo apt-get install portaudio19-dev
-```
-```
-pip install PyAudio
 ```
 
 You can also use homebrew to install these modules. brew install ffmpeg, portaudio, etc
