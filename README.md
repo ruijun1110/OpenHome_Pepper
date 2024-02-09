@@ -66,6 +66,8 @@ sudo apt-get install portaudio19-dev
 ```
 pip install PyAudio
 ```
+
+You can also use homebrew to install these modules. brew install ffmpeg, portaudio, etc
 ## How to run the main pipeline?
 
 To run the main pipeline, run the following command:
