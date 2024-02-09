@@ -1,6 +1,6 @@
 import argparse
 
-def get_initial_personality():
+def get_args():
     """    
     This function add arguments to any module in which it will be called.
     you can add personality while runing main.py file using -p or --personality command.
@@ -8,6 +8,7 @@ def get_initial_personality():
 
     Returns:
         personality (string): Return a string name of personality selected by user, by default it is Alan_watts.
+        no_audio (bool): Turns off audio (transcription and synthesis). Useful for debugging functionality
     """
     # Create the parser and write description for user if he/she types `python3 main.py --help`
     parser = argparse.ArgumentParser(description="Personality arguments help.",
@@ -16,14 +17,8 @@ def get_initial_personality():
     # add argument to allow user to select the assistant personality.
     # Personality name can be added through -p personality_name or --personality personality_name while running the main.py
     parser.add_argument("-p", "--personality", default='1', help="Personality name")
+    parser.add_argument("--no-audio", action='store_true', help="No STT and TTS")
 
     # get the argument passed by user
     args = parser.parse_args()
-
-    # convert to dictioanry
-    config = vars(args)
-
-    # get personality key from config dictionary
-    personality = config['personality']
-
-    return personality
+    return args
