@@ -2,7 +2,7 @@
 from LLM import chatgpt  # Import the chatgpt function from the LLM (Language Learning Model) module.
 from voice_input_output.text_to_voice import text_to_speech  # Convert text responses to voice.
 from voice_input_output.voice_to_text import record_and_transcribe  # Convert voice inputs to text.
-from add_arguments import get_initial_personality  # Parse arguments for initial personality setup.
+from add_arguments import get_args  # Parse arguments for initial personality setup.
 from process_user_message import process_message  # Process user messages to determine actions.
 from personalities_manager import load_personality  # Manage loading of AI personalities.
 from history_files.history_manager import store_history  # Manage storage of all conversation history.
@@ -18,10 +18,10 @@ with open('config.yaml', 'r', encoding='utf-8') as file:
     file_data = yaml.safe_load(file)  # Safe loading avoids executing arbitrary code.
 
 # Initialize system based on user arguments.
-personality_id = get_initial_personality()  # Get the personality ID specified by the user.
-personality = load_personality(personality_id=personality_id)  # Load the corresponding personality data.
+args = get_args()
+personality = load_personality(personality_id=args.personality)  # Load the corresponding personality data.
 
-def main(personality, conversation):
+def main(personality, conversation, no_audio=False):
     """
     Drive the main interaction loop with the user, handling voice input, processing, response generation, and voice output.
 
@@ -36,7 +36,10 @@ def main(personality, conversation):
     
     if conversation:
         # Convert user's spoken words into text.
-        user_message = record_and_transcribe(file_data['openai_api_key'])
+        if no_audio:
+            user_message = input("User: ")
+        else:
+            user_message = record_and_transcribe(file_data['openai_api_key'])
         
         # Update the conversation history with the user's message.
         conversation = manage_conversation(user_message, conversation, role='user')
@@ -64,9 +67,10 @@ def main(personality, conversation):
         # Greet the user on the first interaction.
         formatted_message = file_data['greetings']
         conversation.append({"role": "user", "content": ''})
-    
+   
     # Convert the AI's text response to speech.
-    text_to_speech(formatted_message, personality['voice_id'], file_data['elevenlabs_api_key'])
+    if not no_audio:
+      text_to_speech(formatted_message, personality['voice_id'], file_data['elevenlabs_api_key'])
     
     return conversation, end_chat
 
@@ -75,6 +79,6 @@ conversation = []
 
 # Main interaction loop.
 while True:
-    conversation, end_chat = main(personality, conversation)
+    conversation, end_chat = main(personality, conversation, args.no_audio)
     if end_chat:
         break  # Exit the loop if the conversation should end.
