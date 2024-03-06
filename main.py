@@ -57,24 +57,28 @@ def main(personality, conversation, no_audio=False):
         
         # if not is_valid_message:
         #     return conversation, end_chat  # Skip response generation if message is invalid.
-        
-        # Generate a response using the chatgpt function.
-            
+
+        # Update the conversation history with the user's message.            
         conversation = manage_conversation(user_message, conversation, role='user')
 
+        # Generate a response from LLM
         response = chatgpt(file_data['openai_api_key'], conversation, initial_personality['personality'], temperature=1.2)
         print(Fore.CYAN + f"{initial_personality['name']}: {response}" + Style.RESET_ALL)
         final_user_message = user_message
-        # "<task>,<[summarized command]>,<[acknowledgement]>" 
+        # If task is determined, the response format will be "<task>,<[summarized command]>,<[acknowledgement]>" 
         if "<task>" in response:
             command = response.split("<")[2]
             response = response.split("<")[3]
+            # Save filler response to conversation history
             conversation = manage_conversation(response, conversation, role='assistant')
             text_to_speech(response, voice_id, elevenlabs_api)
+            # Process the command and generate a system response, which is from the Google Calendar.
             system_response = google_calendar.command_processing(file_data, command)
             print(Fore.CYAN + f"System: {system_response}" + Style.RESET_ALL)
+            # Save the system response to the conversation history.
             conversation = manage_conversation(system_response, conversation, role='system')
             print("Conversation passed to OpenAI:" + conversation)
+            # Generate a final response to the task from LLM
             final_response = chatgpt(file_data['openai_api_key'], conversation, initial_personality['personality'], temperature=1.2)
             print(Fore.CYAN + f"{initial_personality['name']}: {final_response}" + Style.RESET_ALL)
         else:
@@ -102,13 +106,6 @@ def main(personality, conversation, no_audio=False):
 
 # Initialize the conversation history.
 conversation = []
-
-def get_current_datetime():
-    now = datetime.datetime.utcnow()
-    pst = pytz.timezone('America/Los_Angeles')
-    now_pst = now.astimezone(pst).isoformat()
-    weekday = now.astimezone(pst).strftime("%A")
-    return now_pst, weekday
 
 # Main interaction loop.
 while True:

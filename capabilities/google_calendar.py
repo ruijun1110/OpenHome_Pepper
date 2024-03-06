@@ -11,12 +11,13 @@ from googleapiclient.errors import HttpError
 import datetime
 import pytz
 
+# If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/calendar.events"]
 weekdays = {6:"Sunday", 0:"Monday", 1:"Tuesday", 2:"Wednesday", 3:"Thursday", 4:"Friday", 5:"Saturday"}
+# Load the prompts from the capabilities folder
 command_processing_prompt_file = open("capabilities/command_processing_prompt.txt", "r")
 command_processing_prompt = command_processing_prompt_file.read()
 command_processing_prompt_file.close()
-# If modifying these scopes, delete the file token.json.
 deletion_prompt_file = open("capabilities/deletion_prompt.txt", "r")
 deletion_prompt = deletion_prompt_file.read()
 deletion_prompt_file.close()
@@ -44,18 +45,25 @@ def calendar_authenticate():
     return creds
 
 def command_processing(file_data, command):
+    """Process the command and return the system response."""
+    # Get the current date and time in PST in ISO format
     date = datetime.date.today()
     pst_datetime = datetime.datetime.now(pytz.timezone('US/Pacific')).isoformat()
     weekday = weekdays[datetime.date.today().weekday()]
     print(f"[current datetime] {pst_datetime} {weekday}")
+    # Edit the user message to include the current date and time
     edit_user_message = f"[date] {date} [weekday] {weekday} [datetime] {pst_datetime} [Inquiry] {command}"
+    # Create temp conversation to pass to OpenAI
     command_process_conversation = manage_conversation(edit_user_message, [], role='user') 
+    # Generate a action from LLM
     response = chatgpt(file_data['openai_api_key'], command_process_conversation, command_processing_prompt, temperature=1.2)
     command_process_conversation = manage_conversation(response, command_process_conversation, role='assistant')
     print(Fore.CYAN + f"Command processed: {response}" + Style.RESET_ALL) 
     return command_to_function_mapping(file_data, remove_quotation_marks(response), command)
 
 def command_to_function_mapping(file_data, response, user_message):
+    """Map the command to the corresponding function and return the system response."""
+    # Split the response to get parameters for the API function
     command_args = response.split(",")
     system_response = ""
     if command_args[0] == "search":
@@ -169,7 +177,6 @@ def create_event(start_datetime, end_datetime, description):
   else:
     format_string = '%Y-%m-%dT%H:%M:%S%z'
   end_datetime = datetime.datetime.strptime(end_datetime, format_string).strftime('%A %B %d %Y %H:%M')
-#   print(f'Creating an event for {description} from {start_date} to {end_datetime}')
   event = service.events().insert(calendarId='primary', body=event).execute()
   return f'Your event for {description} on {start_date} has been created.'
 
