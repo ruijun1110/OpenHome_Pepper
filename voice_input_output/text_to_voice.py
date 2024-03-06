@@ -4,6 +4,8 @@ from pydub import AudioSegment
 from pydub.playback import play
 # for safely parsing an expression node or a Unicode
 from ast import literal_eval
+from mycroft_plugin_tts_mimic3 import Mimic3TTSPlugin
+import simpleaudio as sa
 
 # function to convert text to speech
 def text_to_speech(text, voice_id, api_key):
@@ -46,3 +48,15 @@ def text_to_speech(text, voice_id, api_key):
         if "detail" in response_dictionary:
             message = response_dictionary["detail"]["message"]
         print(message)
+
+
+def text_to_speech_mimic(text):
+    cfg = {"voice": "en_US/ljspeech_low", "length_scale": 0.7}  # select voice etc here
+
+    mimic = Mimic3TTSPlugin(lang="en_US", config=cfg)
+    input_text = text
+    mimic.get_tts(input_text, "../output_file_path.wav")
+    wave_obj = sa.WaveObject.from_wave_file("../output_file_path.wav")
+    play_obj = wave_obj.play()
+    play_obj.wait_done()  # Wait until sound has finished playing
+

@@ -70,5 +70,23 @@
     "mood": "Ava-mood.json",
     "current_mood": "Ava-current-mood.json",
     "mood_evolving_instructions": "Ava-Mood-Instructions.txt"
-  } 
+  },
+    "9": {
+    "ID": "9",
+    "name": "News Assistant",
+    "voice_id": "eC737JJyVIAHiQQk49rl",
+    "personality": "personalities/NewsAssistant.txt",
+    "mood": "Ava-mood.json",
+    "current_mood": "Ava-current-mood.json",
+    "mood_evolving_instructions": "Ava-Mood-Instructions.txt"
+  },
+    "10": {
+    "ID": "10",
+    "name": "Schedule Assistant",
+    "voice_id": "eC737JJyVIAHiQQk49rl",
+    "personality": "personalities/schedule_assistant.txt",
+    "mood": "Ava-mood.json",
+    "current_mood": "Ava-current-mood.json",
+    "mood_evolving_instructions": "Ava-Mood-Instructions.txt"
+  }
 }

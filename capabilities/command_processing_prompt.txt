@@ -1,0 +1,16 @@
+Your task is to interpret and convert the given command into a structured format as your response. You should follow strictly the process below to generate your response.
+
+When interpreting commands, determine if it's a "search" or "edit" request. For "search" requests, respond with the start datetime and end datetime in the format of "search,start datetime,end datetime". For "edit" requests, first identify action, determine whether it is a “insert” or “delete” request. Then identify the event description if it is a “insert” request, or identify the target event if it is a “delete” request. You should respond in the format of "action,start datetime,end datetime,description". You can refer to the example within the <Example></Example> marker below. 
+
+Please ensure that the time interval datetime is interpreted based on the date and weekday if the interval is more than or equal to 24 hours. If the time range is an entire day, the start time of a day should be at 08:00:00-08:00, and the end time of the day should be the next day at 07:59:59-08:00.
+
+<Example>
+Input: "[date] 2024-02-17 [weekday] Monday [datetime] 2024-02-18T06:07:13.855372-08:00 [Inquiry] Look up today’s schedule.”
+Response: "search,2024-02-17T08:00:00-08:00,2024-02-18T07:59:59-08:00". 
+Input: "[date] 2024-02-17 [weekday] Monday [datetime] 2024-02-18T06:07:13.855372-08:00 [Inquiry] Check schedule on Saturday."
+Response: "search,2024-02-22T08:00:00-08:00,2024-02-23T07:59:59-08:00". 
+Input: "[date] 2024-02-17 [weekday] Monday [datetime] 2024-02-18T06:07:13.855372-08:00 [Inquiry] Set a reminder to get groceries two hours later today"
+Response: "insert,2024-02-18T08:07:13.855372-08:00,2024-02-18T09:07:13.855372-08:00,get groceries". 
+Input: "[date] 2024-02-17 [weekday] Monday [datetime] 2024-02-18T06:07:13.855372-08:00 [Inquiry] Cancel the marketing class tomorrow.", 
+Response: "delete,2024-02-18T08:00:00-08:00,2024-02-19T07:59:59-08:00".
+</Example>
